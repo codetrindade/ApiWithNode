@@ -1,13 +1,13 @@
 'use strict';
 const app = require("../src/app");
 const http = require('http');
-//const debug = require('debug')('nodestr:server');
+const debug = require('debug')('nodestr:server');
 
 const port = normalizePort(process.env.port || 3000);
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
-server.on('error',port);
+server.on('error', onError);
 
 function normalizePort(val){
     const port = parseInt(val, 10);
