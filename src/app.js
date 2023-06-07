@@ -17,17 +17,6 @@ const route = router.get('/', (req, res, next)=>{
     });
 });
 
-const create = router.post('/', (req, res, next)=>{
-    res.status(200).send(req.body);
-});
-
-const del = router.put('/', (req, res, next)=>{
-    res.status(200).send(req.body);
-});
-
-const put = router.post('/', (req, res, next)=>{
-    res.status(200).send(req.body);
-});
 
 app.use("/", create);
 module.exports = app;
