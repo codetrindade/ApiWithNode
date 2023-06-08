@@ -4,19 +4,22 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 
-app.use(bodyParser);
-app.use(bodyParser.urlencoded({extended: false}));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-const router = express.Router();
+// parse application/json
+app.use(bodyParser.json())
 
+app.use(function (req, res) {
+    res.setHeader('Content-Type', 'text/plain')
+    res.write('you posted:\n')
+    res.end(JSON.stringify(req.body, null, 2))
+})
 
-const route = router.get('/', (req, res, next)=>{
-    res.status(200).send({
-        "title": "Estudo de API",
-        "version": "0.0.1"
-    });
-});
+//Load Router
+const indexRoute = require("./routes/index-route");
+const productRoute = require("./routes/product-route");
 
-
-app.use("/", create);
+app.use("/", indexRoute);
+app.use("/products", productRoute);
 module.exports = app;
