@@ -16,7 +16,7 @@ app.use(function (req, res) {
     res.end(JSON.stringify(req.body, null, 2))
 })
 
-//Load Router
+//Loader Router
 const indexRoute = require("./routes/index-route");
 const productRoute = require("./routes/product-route");
 
