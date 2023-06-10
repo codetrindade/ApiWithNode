@@ -18,7 +18,7 @@ exports.post = (req, res, next) => {
 };
 
 exports.get = (req, res, next) => {
-	Product.find()
+	Product.find({ative:true})
 		.then((data) => {
 			res.status(201).send({ data });
 		})
@@ -43,8 +43,22 @@ exports.getBySlug = (req, res, next) => {
 		});
 };
 
-exports.getById = (req, res, nex) => {
+exports.getById = (req, res, next) => {
 	Product.findById({slug: req.params.id })
+		.then((data) => {
+			res.status(201).send({ data });
+		})
+		.catch((e) => {
+			res.status(404).send({
+				message: "Error",
+				data: e,
+			});
+		});
+};
+
+
+exports.getByTag = (req, res, next) => {
+	Product.find({tag: req.params.tag, ative:true})
 		.then((data) => {
 			res.status(201).send({ data });
 		})
