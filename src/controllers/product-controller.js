@@ -10,7 +10,7 @@ exports.post = (req, res, next) => {
 		})
 		.catch((e) => {
 			res.status(404).send({
-				message: "Produto Cadastrado Com Sucesso",
+				message: "Falh no Cadastro",
 				data: e,
 			});
 		});
@@ -18,7 +18,7 @@ exports.post = (req, res, next) => {
 };
 
 exports.get = async (req, res, next) => {
-	Product.find({active:true}, "title slug price tags")
+	Product.find({ active: true }, "title slug price tags")
 		.then((data) => {
 			res.status(201).send({ data });
 		})
@@ -44,7 +44,7 @@ exports.getBySlug = (req, res, next) => {
 };
 
 exports.getById = (req, res, next) => {
-	Product.findById({slug: req.params.id })
+	Product.findById({ slug: req.params.id })
 		.then((data) => {
 			res.status(201).send({ data });
 		})
@@ -55,10 +55,9 @@ exports.getById = (req, res, next) => {
 			});
 		});
 };
-
 
 exports.getByTag = (req, res, next) => {
-	Product.find({tag: req.params.tag, ative:true})
+	Product.find({ tag: req.params.tag, ative: true })
 		.then((data) => {
 			res.status(201).send({ data });
 		})
@@ -70,8 +69,18 @@ exports.getByTag = (req, res, next) => {
 		});
 };
 
-exports.delete = (req, res, nex) => {
-	res.status(200).send(req.body);
+exports.delete = (req, res, next) => {
+	Product.findByIdAndRemove(req.body.id)
+		.then((x) => {
+			res.status(201).send({ message: "Produto Eliminado Com Sucesso" });
+		})
+		.catch((e) => {
+			res.status(404).send({
+				message: "Falha",
+				data: e,
+			});
+		});
+	res.status(201).send(req.body);
 };
 exports.put = (req, res, nex) => {
 	const id = req.params.id;
