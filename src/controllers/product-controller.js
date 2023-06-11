@@ -5,7 +5,7 @@ exports.post = (req, res, next) => {
 	var product = new Product(req.body);
 	product
 		.save()
-		.then((_) => {
+		.then((x) => {
 			res.status(201).send({ message: "Produto Cadastrado Com Sucesso" });
 		})
 		.catch((e) => {
@@ -17,8 +17,8 @@ exports.post = (req, res, next) => {
 	res.status(201).send(req.body);
 };
 
-exports.get = (req, res, next) => {
-	Product.find({ative:true})
+exports.get = async (req, res, next) => {
+	Product.find({active:true}, "title slug price tags")
 		.then((data) => {
 			res.status(201).send({ data });
 		})
