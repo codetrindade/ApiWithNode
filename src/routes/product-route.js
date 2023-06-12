@@ -11,6 +11,6 @@ router.get('admin/:id', controller.getById);
 router.get('tags/:tag', controller.getByTag);
 router.put('/:id', controller.put);
 router.post('/', controller.post);
-router.delete('/', controller.delete);
+router.delete('/:id', controller.delete);
 
 module.exports = router;
